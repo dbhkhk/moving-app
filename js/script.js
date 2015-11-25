@@ -33,9 +33,10 @@ function loadData() {
         var article, articleURL, articleName, firstParagraph, articleTemplate;
         var articleList = data.response.docs;
         for (var i = 0, len = articleList.length; i < len; i++) {
-            articleURL = articleList[i].web_url;
-            articleName = articleList[i].headline.main;
-            firstParagraph = articleList[i].snippet;
+            article = articleList[i];
+            articleURL = article.web_url;
+            articleName = article.headline.main;
+            firstParagraph = article.snippet;
             articleTemplate = '<li class="article"><a href="' + articleURL + '">' + articleName +
             '</a><p>' + firstParagraph + '</p></li>';
             $nytElem.append(articleTemplate);
