@@ -1,4 +1,4 @@
-
+ 
 function loadData() {
 
     var $body = $('body');
@@ -43,6 +43,22 @@ function loadData() {
         }
     }).error(function(){
         $nytHeaderElem.text('New York Times Articles Cannot Be Loaded');
+    });
+
+    var wikiURL = 'https://en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=' +
+    cityStr;
+    $.ajax(wikiURL, {
+        dataType: 'jsonp',
+        success: function(data){
+            var wikiList = data.query.search;
+            var wikiLink, wikiName, wikiTemplate;
+            for (var i = 0, len = wikiList.length; i < len; i++){
+                wikiName = wikiList[i].title;
+                wikiLink = 'https://en.wikipedia.org/wiki/' + wikiName;
+                wikiTemplate = '<li><a href="' + wikiLink + '">' + wikiName + '</a></li>';
+                $wikiElem.append(wikiTemplate);
+            }
+        }
     });
 
     return false;
